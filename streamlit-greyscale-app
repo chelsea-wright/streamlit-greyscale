@@ -1,0 +1,26 @@
+import streamlit as st
+from PIL import Image
+
+st.subheader("Change Colored Image to Greyscale")
+st.text("Upload a picture or take one by expanding the drop-down below.\n"
+        "This image will then be transformed to greyscale.")
+
+upload_image = st.file_uploader("Upload image here")
+#turn uploaded image to greyscale
+
+with st.expander("Start Camera"):
+    camera_image = st.camera_input("Camera")
+
+if camera_image:
+    img = Image.open(camera_image)
+    gray_camera_image = img.convert("L")
+    st.image(gray_camera_image)
+
+if upload_image:
+    st.image(upload_image, caption="Original Uploaded Picture")
+    # Open the user uploaded image with PIL
+    img = Image.open(upload_image)
+    # Convert the image to grayscale
+    gray_uploaded_img = img.convert('L')
+    # Display the grayscale image on the webpage
+    st.image(gray_uploaded_img, caption="Modified Uploaded Picture")
